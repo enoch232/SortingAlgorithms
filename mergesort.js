@@ -1,26 +1,33 @@
-'use strict';
-var test_array = [13,5,7,9,1,4,6];
-var merge_sort = function(array, start, end){
-	if (start = end){
-		return;
-	}
-	var middle = (start+end)/2;
-	var left = merge_sort(array, start, middle);
-	var right = merge_sort(array, middle+1, end);
-	return merge(array, left, right);
+var test_array = [54,23,29,15,2,8,18,89];
+function mergeSort(array){
+    if (array.length < 2){
+        return array
+    }
+    var middle = parseInt((array.length/2));
+    var left = array.slice(0, middle);
+    var right = array.slice(middle, array.length);
+    return merge(mergeSort(left), mergeSort(right));
 }
-var merge = function(array, start, end){
-	var merged_array = [];
-	var left_array_counter = 0;
-	var right_array_counter = 0;
-	var counter = 0;
-	while(){
-		if (array[left_array_counter] > array[right_array_counter]){
-			merged_array[counter] = array[right_array_counter];
-		}else{
-			merged_array[counter] = array[left_array_counter];
-		}
-	}
-}
+function merge(left, right){
+    var new_array = [];
+    while(left.length && right.length){
+        if(left[0] <= right[0]){
+            new_array.push(left[0]);
+            left.shift();
+        }else{
+            new_array.push(right[0]);
+            right.shift();
+        }
+    }
+    while(left.length){
+        new_array.push(left[0]);
+        left.shift();
+    }
+    while(right.length){
+        new_array.push(right[0]);
+        right.shift();
+    }
+    return new_array;
 
-merge_sort(test_array,1,7);
+}
+console.log(mergeSort(test_array));
